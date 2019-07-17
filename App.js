@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -31,7 +31,8 @@ const App = () => {
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+          style={styles.scrollView}
+        >
           <Header />
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     color: Colors.dark,
   },
   highlight: {
-    fontWeight: '700',
+    fontWeight: '700'
   },
   footer: {
     color: Colors.dark,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 4,
     paddingRight: 12,
-    textAlign: 'right',
+    textAlign: 'right'
   },
 });
 
