@@ -1,136 +1,80 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import styles from './styles';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as FavoriteActions } from '../../store/ducks/favorites';
-
-import FavoriteItem from '~/components/FavoriteItem';
+import { Creators as FavoriteActions } from '~/store/ducks/favorites';
 
 class Main extends Component {
   static navigationOptions = {
     header: null,
   };
 
-  static PropTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
-    addFavoriteRequest: PropTypes.func.isRequired,
-    favorites: PropTypes.shape({
-      data: PropTypes.arrayOf(PropTypes.shape),
-      errorOnAdd: PropTypes.oneOfType([null, PropTypes.string]),
-      loading: PropTypes.bool,
-    }).isRequired,
-  };
-
-  // state = {
-  //   repoNameInput: ''
-  // };
-
-  // navigateToFavorites = () => {
-  //   this.props.navigation.navigate('Favorites');
-  // };
-
   componentWillMount() {
     this.props.addFavoriteRequest();
   }
-  // addRepository = () => {
-  //   if (!this.state.repoNameInput.length) {
-  //     return;
-  //   }
 
-  //   this.props.addFavoriteRequest();
-  // };
-
-  renderList = () => {
-    const arr = {
-      resposta: [
-        'teste',
-        {
-          nome: 'paulo'
-        },
-      ],
-    };
-    const movies = this.props.favorites.data[0];
-    console.tron.log('Movies', movies /*arr.resposta[1].nome*/);
-    
-    movies.map(item => console.tron.log(item));
+  renderMovies = movie => {
     return (
-      <FlatList
-        data={this.props.favorites.data[0]}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => <FavoriteItem favorite={item} />}
-      />
+      <View style={styles.renderMovie}>
+        <View>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate('Details', {
+                id: movie.id,
+              })
+            }
+          >
+            <Image
+              style={styles.image}
+              source={{
+                uri: 'https://image.tmdb.org/t/p/w500' + movie.poster_path,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   };
 
   render() {
+    const movies = this.props.favorites.data;
+    //movies.map(item => this.renderList(item));
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <View>
+          <Text style={styles.title}>Today's Highlight</Text>
+        </View>
+
         <View style={styles.content}>
-          <Text style={styles.title}>Gitmark</Text>
-          <Text style={styles.description}>
-            Comece adicionando alguns repositórios aos seus favoritos!
-          </Text>
+          <View>
+            <Image
+              style={styles.imageDestaque}
+              source={{
+                uri: 'https://image.tmdb.org/t/p/w500' + movies[0].poster_path,
+              }}
+            />
+          </View>
 
-          <View style={styles.form}>
-            {!!this.props.favorites.errorOnAdd && (
-              <Text style={styles.error}>
-                {this.props.favorites.errorOnAdd}
-              </Text>
-            )}
-
-            <View style={styles.container}>
-              {!this.props.favorites.data ? (
-                <Text style={styles.empty}>Nenhum favorito adicionado</Text>
-              ) : (
-                this.renderList()
-              )}
-            </View>
-
-            {/* <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="usuário/repositório"
-              underlineColorAndroid="transparent"
-              value={this.state.repoNameInput}
-              onChangeText={repoNameInput => this.setState({ repoNameInput })}
-            /> */}
-
-            {/* <TouchableOpacity
-              style={styles.button}
-              onPress={this.addRepository}
-              activeOpacity={0.6}
-            >
-              {this.props.favorites.loading ? (
-                <ActivityIndicator size="small" color={styles.loading.color} />
-              ) : (
-                <Text style={styles.buttonText}>Adicionar aos favoritos</Text>
-              )}
-            </TouchableOpacity> */}
+          <View>
+            <Text style={styles.textTitle}>{movies[0].title}</Text>
+            <Text style={styles.text} textBreakStrategy={'highQuality'}>
+              {movies[0].overview}
+            </Text>
+            <Text style={styles.vote}>
+              Averange grade: {movies[0].vote_average}
+            </Text>
           </View>
         </View>
 
-        <View style={styles.footer}>
-          <TouchableOpacity onPress={this.navigateToFavorites}>
-            <Text style={styles.footerLink}>
-              Meus favoritos ({this.props.favorites.data.length})
-            </Text>
-          </TouchableOpacity>
+        <View style={styles.scrollView}>
+          <View>
+            <Text style={styles.maisFilmes}>More Movies</Text>
+          </View>
+          <ScrollView horizontal>
+            {movies.map(movie => this.renderMovies(movie))}
+          </ScrollView>
         </View>
       </View>
     );

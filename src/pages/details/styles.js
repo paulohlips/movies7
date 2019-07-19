@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { colors } from '~/styles';
 
 const styles = StyleSheet.create({
@@ -13,33 +14,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 8,
     paddingTop: 12,
-    width: 220,
-  },
-
-  scrollView: {
-    paddingTop: 50,
-  },
-
-  scrollTitle: {
-    fontWeight: 'bold',
-    color: colors.white,
-    fontSize: 10,
-  },
-
-  renderMovie: {
-    alignItems: 'center',
-    paddingHorizontal: 5,
-    elevation: 3,
+    width: '100%'
   },
 
   image: {
     width: 150,
     height: 190,
-  },
-
-  imageDestaque: {
-    width: 160,
-    height: 210,
+    paddingTop: 10,
   },
 
   vote: {
@@ -54,12 +35,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: colors.white,
     fontWeight: 'bold',
-    paddingHorizontal: 6,
+    alignSelf: 'center'
   },
 
   text: {
     color: colors.white,
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: 'bold',
     lineHeight: 20,
     paddingHorizontal: 6,
     paddingTop: 10,
@@ -68,17 +50,16 @@ const styles = StyleSheet.create({
   maisFilmes: {
     fontWeight: 'bold',
     color: colors.white,
-    fontSize: 14,
+    fontSize: 12,
     paddingHorizontal: 6,
-    paddingVertical: 10,
   },
 
   textTitle: {
     fontWeight: 'bold',
     color: colors.white,
     fontSize: 14,
-    lineHeight: 20,
-    paddingHorizontal: 6,
+    lineHeight: 30,
+    paddingHorizontal: 15,
   },
 });
 
