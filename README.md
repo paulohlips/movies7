@@ -1,14 +1,12 @@
 An RN app inspired by NETFLIX.
 
-To run:
-
-First
+To run, first:
 
 ```
 git clone https://github.com/paulohlips/movies7.git
 ```
 
-then
+then:
 
 ```
 $ yarn
